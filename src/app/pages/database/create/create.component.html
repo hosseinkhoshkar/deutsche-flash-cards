@@ -1,0 +1,86 @@
+<form [formGroup]="phraseForm" (ngSubmit)="onSubmit()">
+  <div class="grid grid-cols-1 gap-4 m-4">
+    <div>
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Phrase</span>
+        </div>
+        <input type="text" formControlName="title" class="w-full input"/>
+      </label>
+      @if (submitted && f.title.errors) {
+        <div class="text-red-400">
+          @if (f.title.errors.required) {
+            <small>Title is required.</small>
+          }
+          @if (f.title.errors.minlength) {
+            <small>
+              Title must be at least 3 characters long.
+            </small>
+          }
+        </div>
+      }
+    </div>
+    <div>
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Translation</span>
+        </div>
+        <textarea class="w-full textarea textarea-bordered" formControlName="description"></textarea>
+      </label>
+      @if (submitted && f.description.errors) {
+        <div class="text-red-400">
+          @if (f.description.errors.required) {
+            <small>Description is required.</small>
+          }
+          @if (f.description.errors.minlength) {
+            <small>
+              Description must be at least 10 characters long.
+            </small>
+          }
+        </div>
+      }
+    </div>
+    <div>
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Example</span>
+        </div>
+        <textarea class="w-full textarea textarea-bordered" formControlName="example"></textarea>
+      </label>
+    </div>
+    <div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-2">
+          <button class="w-full btn btn-success text-white text-bold">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M5 2C4.20435 2 3.44129 2.31607 2.87868 2.87868C2.31607 3.44129 2 4.20435 2 5V19C2 19.7957 2.31607 20.5587 2.87868 21.1213C3.44129 21.6839 4.20435 22 5 22H19C19.7957 22 20.5587 21.6839 21.1213 21.1213C21.6839 20.5587 22 19.7957 22 19V8C22 7.73478 21.8946 7.48043 21.7071 7.29289L16.7071 2.29289C16.5196 2.10536 16.2652 2 16 2H5ZM5 4C4.73478 4 4.48043 4.10536 4.29289 4.29289C4.10536 4.48043 4 4.73478 4 5V19C4 19.2652 4.10536 19.5196 4.29289 19.7071C4.48043 19.8946 4.73478 20 5 20H6V13C6 12.4477 6.44772 12 7 12H17C17.5523 12 18 12.4477 18 13V20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V8.41421L15.5858 4H9V7H16C16.5523 7 17 7.44772 17 8C17 8.55228 16.5523 9 16 9H8C7.44772 9 7 8.55228 7 8V4H5ZM8 14V20H16V14H8Z"
+                      fill="#ffffff"></path>
+              </g>
+            </svg>
+            Save
+          </button>
+        </div>
+        <div>
+          <button class="w-full btn btn-error text-white text-bold" (click)="goBack()">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17"
+                  stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+            </svg>
+            Clear
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

@@ -1,0 +1,24 @@
+@if (user) {
+  <div class="grid justify-items-center grid-cols-1 gap-4 m-4">
+    <div>
+      <div class="avatar">
+        <div class="mask mask-squircle w-24">
+          <img [src]="imageUrl"  (error)="setDefaultImage()" alt="Profile Image"/>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="badge badge-soft badge-accent">{{user.user_metadata.full_name}}</div>
+    </div>
+    <div>
+      <p>{{user.user_metadata.email}}</p>
+    </div>
+    <div class="w-full">
+      <button class="btn btn-info w-full" (click)="changePhraseStyle()">{{this.phraseStyle?'show Translation First':'show Phrase First'}}</button>
+    </div>
+    <div class="w-full">
+      <button class="btn btn-error w-full" (click)="logoutUser()">Logout</button>
+    </div>
+  </div>
+
+}

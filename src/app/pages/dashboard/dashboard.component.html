@@ -1,0 +1,44 @@
+@if (phrases) {
+  <div class="carousel w-full">
+  @for (phrase of phrases; track phrase.id;let i = $index) {
+    @if (!phrase.hide && !phrase.seen && phrase.needToReview) {
+
+        <div [id]="'slide'+i" class="carousel-item relative w-full">
+          <label class="swap swap-flip"
+          >
+            <input type="checkbox" />
+
+            <div class="swap-on w-screen h-[calc(100vh-64px)]">
+              <div class="card h-full w-full flex flex-col  justify-between bg-base-300 justify-center text-center">
+                <h1 class="justify-items-center">{{phraseStyle?phrase.description:phrase.title}}</h1>
+                @if (phrase.example) {
+                  <kbd class="m-4 kbd kbd-md">{{phrase.example}}</kbd>
+                }
+                <div class="grid grid-cols-4 gap-4 mt-10">
+                  <div></div>
+                  <div>
+                    <button class="w-full btn text-white text-bold" [ngClass]="{'btn-success':phrase.needToReview,'btn-warn':!phrase.needToReview}" (click)="reviewAgain(phrase)">
+                      Review
+                    </button>
+                  </div>
+                  <div>
+                    <button class="w-full btn btn-error text-white text-bold" (click)="hidePhrase(phrase)">
+                      Hide
+                    </button>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+            <div class="swap-off">
+              <div class="card h-full w-full flex bg-base-200 justify-center text-center">
+                <h1 class="text-5xl justify-items-center">{{phraseStyle?phrase.title:phrase.description}}</h1>
+              </div>
+            </div>
+          </label>
+        </div>
+
+    }
+  }
+  </div>
+}

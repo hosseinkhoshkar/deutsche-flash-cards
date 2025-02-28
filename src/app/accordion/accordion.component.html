@@ -1,0 +1,159 @@
+<div class="space-y-4">
+  <!-- Accordion Item -->
+  @for (item of items; track item.id; let i = $index) {
+    <div class="bg-base-100 border rounded-md border-gray-600 hover:bg-base-200">
+      <div>
+        <!-- Header -->
+        <button
+          class="w-full text-left px-4 py-2  rounded-md shadow-md flex justify-between items-center"
+          (click)="togglePanel(i)"
+        >
+          <span>
+            @if (expandedIndex === i) {
+              <span class="font-bold">
+                Phrase:
+              </span>
+            }
+            {{ item.title }}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 transition-transform"
+            [ngClass]="{ 'rotate-180': expandedIndex === i }"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="overflow-hidden transition-all duration-300 ease-in-out"
+        [style.maxHeight]="expandedIndex === i ? '300px' : '0px'"
+      >
+        <div class="px-4 py-2">
+          <div class="grid grid-cols-1 gap-2">
+            <div>
+              <p class="font-bold">Translate: </p>
+              <p>{{ item.description }}</p>
+            </div>
+            <div>
+              <p class="flex items-center">
+                Need Review:
+                <span class="inline ml-1">
+              @if (item.needToReview) {
+                <svg class="stroke-emerald-300" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                  <path
+                    d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+                    stroke-width="1.5" stroke-linecap="round"></path>
+                </g>
+              </svg>
+
+              } @else {
+                <svg class="stroke-red-300" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"><g
+                  id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                 stroke-linejoin="round"></g><g
+                  id="SVGRepo_iconCarrier"> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5"
+                                                  stroke-width="1.5" stroke-linecap="round"></path> <path
+                  d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+                  stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+              }
+            </span>
+              </p>
+            </div>
+            <div>
+              <p class="flex items-center">
+                Hidden:
+                <span class="inline ml-1">
+              @if (item.hide) {
+                <svg class="stroke-emerald-300" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                  <path
+                    d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+                    stroke-width="1.5" stroke-linecap="round"></path>
+                </g>
+              </svg>
+
+              } @else {
+                <svg class="stroke-red-300" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"><g
+                  id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                 stroke-linejoin="round"></g><g
+                  id="SVGRepo_iconCarrier"> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5"
+                                                  stroke-width="1.5" stroke-linecap="round"></path> <path
+                  d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7"
+                  stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+              }
+            </span>
+              </p>
+            </div>
+            <div>
+              <p>CreatedAt: {{ item.createdAt | date:'M/d/yy, h:mm a' }}</p>
+            </div>
+            <div>
+              @if (item.createdAt!=item.updatedAt) {
+                <p>UpdatedAt: {{ item.updatedAt | date:'M/d/yy, h:mm a' }}</p>
+              }
+            </div>
+            <div>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-2">
+                  <a [routerLink]="['edit',item.id]" class="w-full btn btn-info text-white text-bold">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          d="M15.4998 5.50067L18.3282 8.3291M13 21H21M3 21.0004L3.04745 20.6683C3.21536 19.4929 3.29932 18.9052 3.49029 18.3565C3.65975 17.8697 3.89124 17.4067 4.17906 16.979C4.50341 16.497 4.92319 16.0772 5.76274 15.2377L17.4107 3.58969C18.1918 2.80865 19.4581 2.80864 20.2392 3.58969C21.0202 4.37074 21.0202 5.63707 20.2392 6.41812L8.37744 18.2798C7.61579 19.0415 7.23497 19.4223 6.8012 19.7252C6.41618 19.994 6.00093 20.2167 5.56398 20.3887C5.07171 20.5824 4.54375 20.6889 3.48793 20.902L3 21.0004Z"
+                          stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                    Edit
+                  </a>
+                </div>
+                <div>
+                  <button class="w-full btn btn-error text-white text-bold" (click)="deleteItem(item)">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17"
+                          stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  }
+</div>
