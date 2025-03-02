@@ -33,8 +33,11 @@ export class DashboardComponent implements OnInit{
     // const selectedReviewed = shuffledReviewed.slice(0, 10);
     //
     let mergedArray = [...notSeen, ...reviewItems];
+    const uniqueArray = mergedArray.filter(
+      (obj, index, self) => self.findIndex(o => o.id === obj.id) === index
+    );
     // Shuffle the final array to randomize order
-    this.phrases = this.shuffleArray(mergedArray);
+    this.phrases = this.shuffleArray(uniqueArray);
 
     this.phraseStyle = this.phraseService.getPhraseStyle()
 
