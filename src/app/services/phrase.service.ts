@@ -75,4 +75,24 @@ export class PhraseService {
   setPhraseStyle(style: boolean) {
     return localStorage.setItem(PHRASE_STYLE, JSON.stringify(style));
   }
+
+  generateMockPhrases(): Phrase[] {
+    const phrases: Phrase[] = [];
+    for (let i = 0; i < 100; i++) {
+      const currentDate = new Date();
+      phrases.push({
+        id: uuidv4(),
+        title: `Title ${i + 1}`,
+        description: `Description for phrase ${i + 1}.`,
+        example: `Example usage of phrase ${i + 1}.`,
+        seen: false,
+        needToReview: false,
+        hide: false,
+        isOpen: false,
+        createdAt: currentDate,
+        updatedAt: currentDate,
+      });
+    }
+    return phrases;
+  }
 }

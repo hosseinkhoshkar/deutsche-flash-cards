@@ -18,12 +18,8 @@
   <div class="grid grid-cols-1 m-4 gap-4">
     <!-- name of each tab group should be unique -->
     <div class="tabs tabs-lift">
-      <input type="radio" name="my_tabs_3" class="tab" aria-label="All" checked="checked"/>
-      <div class="tab-content bg-base-100 border-base-300 p-6">
-        <app-accordion [items]="phrases" (deleteRow)="deletePhrase($event)"/>
-      </div>
 
-      <input type="radio" name="my_tabs_3" class="tab" aria-label="New"  />
+      <input type="radio" name="my_tabs_3" class="tab" aria-label="New" checked="checked" />
       <div class="tab-content bg-base-100 border-base-300 p-6">
         <app-accordion [items]="newPhrases" (deleteRow)="deletePhrase($event)"/>
       </div>

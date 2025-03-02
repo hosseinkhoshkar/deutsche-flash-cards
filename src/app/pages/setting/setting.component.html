@@ -14,8 +14,17 @@
       <p>{{user.user_metadata.email}}</p>
     </div>
     <div class="w-full">
-      <button class="btn btn-info w-full" (click)="changePhraseStyle()">{{this.phraseStyle?'show Translation First':'show Phrase First'}}</button>
+      <fieldset class="fieldset w-full p-4 bg-base-100 border border-base-300 rounded-box w-64">
+        <legend class="fieldset-legend">View Option</legend>
+        <label class="fieldset-label">
+          <input type="checkbox" [checked]="this.phraseStyle"  (change)="changePhraseStyle()"  class="toggle border-indigo-600 checked:bg-orange-400 checked:text-orange-800 checked:border-orange-500 " />
+          Show Translation First
+        </label>
+      </fieldset>
     </div>
+<!--    <div class="w-full">-->
+<!--      <button class="btn btn-info w-full" (click)="generatePhrase()">Generate</button>-->
+<!--    </div>-->
     <div class="w-full">
       <button class="btn btn-error w-full" (click)="logoutUser()">Logout</button>
     </div>

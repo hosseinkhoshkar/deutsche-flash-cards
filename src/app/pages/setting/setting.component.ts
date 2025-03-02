@@ -3,10 +3,13 @@ import {SupabaseService} from '../../services/supabase.service';
 import {Router} from '@angular/router';
 import {User} from '@supabase/supabase-js';
 import {PhraseService} from '../../services/phrase.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-setting',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './setting.component.html',
   styleUrl: './setting.component.css'
 })
@@ -42,5 +45,12 @@ export class SettingComponent implements OnInit {
   changePhraseStyle() {
     this.phraseStyle = !this.phraseStyle;
     this.phraseService.setPhraseStyle(this.phraseStyle);
+  }
+
+  generatePhrase() {
+    const mock = this.phraseService.generateMockPhrases()
+    setTimeout(() => {
+      this.phraseService.savePhrases(mock)
+    },1000)
   }
 }

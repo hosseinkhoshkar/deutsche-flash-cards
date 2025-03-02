@@ -19,18 +19,20 @@ export class DashboardComponent implements OnInit{
   ngOnInit() {
     // this.phrases =
     const phrases = this.phraseService.getPhrases();
-    const needToReviewItems = phrases.filter(item => item.needToReview);
-    const reviewItems = needToReviewItems.filter(item => !item.needToReview);
+    const notSeen = phrases.filter(item => ((item.needToReview && !item.hide) || (!item.seen && !item.hide)));
+    const reviewItems = phrases.filter(item => (!item.needToReview && !item.hide));
 
-    // Shuffle each category to randomize the selections
-    const shuffledNeedToReview = this.shuffleArray(needToReviewItems);
-    const shuffledReviewed = this.shuffleArray(reviewItems);
-
-    // Select 10 items from each category
-    const selectedNeedToReview = shuffledNeedToReview.slice(0, 10);
-    const selectedReviewed = shuffledReviewed.slice(0, 10);
-
-    let mergedArray = [...selectedNeedToReview, ...selectedReviewed];
+    console.log(reviewItems)
+    //
+    // // Shuffle each category to randomize the selections
+    // const shuffledNeedToReview = this.shuffleArray(notSeen);
+    // const shuffledReviewed = this.shuffleArray(reviewItems);
+    //
+    // // Select 10 items from each category
+    // const selectedNeedToReview = shuffledNeedToReview.slice(0, 10);
+    // const selectedReviewed = shuffledReviewed.slice(0, 10);
+    //
+    let mergedArray = [...notSeen, ...reviewItems];
     // Shuffle the final array to randomize order
     this.phrases = this.shuffleArray(mergedArray);
 
@@ -48,11 +50,13 @@ export class DashboardComponent implements OnInit{
 
   reviewAgain(phrase: Phrase) {
     phrase.needToReview=!phrase.needToReview;
+    phrase.hide = false;
     this.phraseService.updatePhrase(phrase);
   }
 
   hidePhrase(phrase: Phrase) {
     phrase.hide=!phrase.hide;
+    phrase.needToReview = false;
     this.phraseService.updatePhrase(phrase);
   }
 
@@ -62,5 +66,10 @@ export class DashboardComponent implements OnInit{
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+  seen(phrase: Phrase) {
+    phrase.seen =true
+    this.phraseService.updatePhrase(phrase);
   }
 }

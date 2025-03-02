@@ -28,7 +28,7 @@ export class DatabaseComponent implements OnInit {
     this.phrases=this.phraseService.getPhrases();
     this.needsToReviewsPhrases=this.phrases.filter(item => item.needToReview);
     this.hiddenPhrases=this.phrases.filter(item => item.hide);
-    this.newPhrases=this.phrases.filter(item => item.needToReview && !item.hide);
+    this.newPhrases=this.phrases.filter(item => !item.needToReview && !item.hide);
   }
 
   toggleAccordion(index: number) {
