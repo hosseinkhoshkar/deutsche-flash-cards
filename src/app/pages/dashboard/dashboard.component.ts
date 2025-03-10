@@ -18,26 +18,7 @@ export class DashboardComponent implements OnInit{
   }
   ngOnInit() {
     // this.phrases =
-    const phrases = this.phraseService.getPhrases();
-    const notSeen = phrases.filter(item => ((item.needToReview && !item.hide) || (!item.seen && !item.hide)));
-    const reviewItems = phrases.filter(item => (!item.needToReview && !item.hide));
-
-    console.log(reviewItems)
-    //
-    // // Shuffle each category to randomize the selections
-    // const shuffledNeedToReview = this.shuffleArray(notSeen);
-    // const shuffledReviewed = this.shuffleArray(reviewItems);
-    //
-    // // Select 10 items from each category
-    // const selectedNeedToReview = shuffledNeedToReview.slice(0, 10);
-    // const selectedReviewed = shuffledReviewed.slice(0, 10);
-    //
-    let mergedArray = [...notSeen, ...reviewItems];
-    const uniqueArray = mergedArray.filter(
-      (obj, index, self) => self.findIndex(o => o.id === obj.id) === index
-    );
-    // Shuffle the final array to randomize order
-    this.phrases = this.shuffleArray(uniqueArray);
+    this.phrases = this.phraseService.getReadingPhrases();
 
     this.phraseStyle = this.phraseService.getPhraseStyle()
 
@@ -60,16 +41,10 @@ export class DashboardComponent implements OnInit{
   hidePhrase(phrase: Phrase) {
     phrase.hide=!phrase.hide;
     phrase.needToReview = false;
-    this.phraseService.updatePhrase(phrase);
+    this.phrases = this.phraseService.updatePhrase(phrase);
   }
 
-  shuffleArray(array:Array<Phrase>) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+
 
   seen(phrase: Phrase) {
     phrase.seen =true

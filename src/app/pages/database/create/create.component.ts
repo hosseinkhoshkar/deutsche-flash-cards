@@ -32,10 +32,10 @@ export class CreateComponent implements OnInit {
   createForm() {
     this.phraseForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2)]],
-      description: ['', [Validators.required, Validators.minLength(2)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
       example: [''],
       seen: [false],
-      needToReview: [false],
+      needToReview: [true],
       hide: [false],
       createdAt: [new Date()],
       updatedAt: [new Date()]
