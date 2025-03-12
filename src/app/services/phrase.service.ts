@@ -117,6 +117,11 @@ export class PhraseService {
     if (index === -1) {
       // If phrase does not exist, add it
       phrases.push(newPhrase);
+      const readingPhrases = this.getReadingPhrases();
+      if (readingPhrases.length < READING_MAX_PHRASES) {
+        readingPhrases.push(newPhrase);
+        this.saveReadingPhrases(readingPhrases);
+      }
     } else {
       // If phrase exists, update it
       phrases[index] = newPhrase;
