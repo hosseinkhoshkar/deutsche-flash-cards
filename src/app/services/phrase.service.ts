@@ -64,9 +64,10 @@ export class PhraseService {
 
           readingPhrases = this.deleteFromReadingPhrases(updatedPhrase);
           // readingPhrases[index] = updatedPhrase;
+        }else{
+          readingPhrases = this.saveReadingPhrases(readingPhrases);
         }
 
-        readingPhrases = this.saveReadingPhrases(readingPhrases);
       }
     }, 500)
     return readingPhrases
@@ -143,7 +144,7 @@ export class PhraseService {
 
   generateMockPhrases(): Phrase[] {
     const phrases: Phrase[] = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 7; i++) {
       const currentDate = new Date();
       phrases.push({
         id: uuidv4(),
@@ -163,9 +164,10 @@ export class PhraseService {
 
   private generatedReadingPhrases() {
     const phrases = this.getPhrases();
-    const reviewItems = phrases.filter(item => (!item.needToReview && !item.hide));
-    const notSeen = phrases.filter(item => ((item.needToReview && !item.hide) || (!item.seen && !item.hide)));
-
+    const reviewItems = phrases.filter(item => (item.needToReview==true && !item.hide));
+    console.log(reviewItems)
+    const notSeen = phrases.filter(item => ((item.needToReview==false && !item.hide)));
+    console.log(notSeen)
     const shuffleReviewItems = this.shuffleArray(reviewItems).slice(0, 10);
     const shuffleNotSeenItems = this.shuffleArray(notSeen).slice(0, READING_MAX_PHRASES - shuffleReviewItems.length);
 

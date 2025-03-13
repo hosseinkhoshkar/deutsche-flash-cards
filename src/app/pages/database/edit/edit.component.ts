@@ -34,7 +34,6 @@ export class EditComponent implements OnInit {
   }
 
   createForm() {
-    console.log(this.phrase);
     this.phraseForm = this.fb.group({
       title: [this.phrase?.title, [Validators.required, Validators.minLength(2)]],
       description: [this.phrase?.description, [Validators.required, Validators.minLength(10)]],

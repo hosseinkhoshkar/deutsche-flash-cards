@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(10)]],
       example: [''],
       seen: [false],
-      needToReview: [true],
+      needToReview: [false],
       hide: [false],
       createdAt: [new Date()],
       updatedAt: [new Date()]
