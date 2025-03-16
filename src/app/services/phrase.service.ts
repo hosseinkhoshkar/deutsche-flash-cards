@@ -53,29 +53,29 @@ export class PhraseService {
     const phrases = this.getPhrases();
     let readingPhrases = this.getReadingPhrases();
     const readingIndex = readingPhrases.findIndex(phrase => phrase.id === updatedPhrase.id);
-    setTimeout(() => {
-      const index = phrases.findIndex(phrase => phrase.id === updatedPhrase.id);
-      if (index !== -1) {
-        phrases[index] = updatedPhrase;
-        this.savePhrases(phrases);
-      }
-      if (readingIndex !== -1) {
-        if (updatedPhrase.hide === true) {
+    const index = phrases.findIndex(phrase => phrase.id === updatedPhrase.id);
+    if (index !== -1) {
+      phrases[index] = updatedPhrase;
+      this.savePhrases(phrases);
+    }
+    if (readingIndex !== -1) {
+      readingPhrases[readingIndex] = updatedPhrase;
+    }
+    if (readingIndex !== -1) {
+      if (updatedPhrase.hide === true) {
 
-          readingPhrases = this.deleteFromReadingPhrases(updatedPhrase);
-          // readingPhrases[index] = updatedPhrase;
-        }else{
-          readingPhrases = this.saveReadingPhrases(readingPhrases);
-        }
-
+        readingPhrases = this.deleteFromReadingPhrases(updatedPhrase);
+        // readingPhrases[index] = updatedPhrase;
+      }else if (updatedPhrase.needToReview === true) {
+        readingPhrases = this.saveReadingPhrases(readingPhrases);
       }
-    }, 500)
+    }
     return readingPhrases
   }
 
   deleteFromReadingPhrases(phrase: Phrase) {
-    let readingPhrases = this.getReadingPhrases().filter(ph => ph.id !== phrase.id);
-    let selectedPhrase
+    let readingPhrases: Phrase[] = this.getReadingPhrases().filter(ph => ph.id !== phrase.id);
+    let selectedPhrase: Phrase
     if (phrase && phrase.needToReview === true) {
       const needToReviewPhrases = this.getPhrases().filter(phrase => phrase.needToReview === true);
       const randIndex = Math.floor(Math.random() * needToReviewPhrases.length);
@@ -89,14 +89,18 @@ export class PhraseService {
         selectedPhrase = newPhrases[randIndex];
       }
     }
-    if (selectedPhrase === undefined) {
+    // @ts-ignore
+    if (!selectedPhrase) {
       const allPhrases = this.getPhrases();
       const randIndex = Math.floor(Math.random() * allPhrases.length);
       selectedPhrase = allPhrases[randIndex];
     }
-    readingPhrases = [...readingPhrases, selectedPhrase]
+    const haveThisPhrase = readingPhrases.findIndex(phrase => phrase.id === selectedPhrase.id);
+    if (haveThisPhrase<0) {
+      readingPhrases.push(selectedPhrase)
+    }
+    return this.saveReadingPhrases(readingPhrases)
 
-    return this.saveReadingPhrases(readingPhrases);
   }
 
   // Delete a phrase by its title
@@ -144,7 +148,7 @@ export class PhraseService {
 
   generateMockPhrases(): Phrase[] {
     const phrases: Phrase[] = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 100; i++) {
       const currentDate = new Date();
       phrases.push({
         id: uuidv4(),
@@ -164,10 +168,9 @@ export class PhraseService {
 
   private generatedReadingPhrases() {
     const phrases = this.getPhrases();
-    const reviewItems = phrases.filter(item => (item.needToReview==true && !item.hide));
-    console.log(reviewItems)
-    const notSeen = phrases.filter(item => ((item.needToReview==false && !item.hide)));
-    console.log(notSeen)
+    const reviewItems = phrases.filter(item => (item.needToReview && !item.hide));
+    const notSeen = phrases.filter(item => (!item.needToReview && !item.hide));
+
     const shuffleReviewItems = this.shuffleArray(reviewItems).slice(0, 10);
     const shuffleNotSeenItems = this.shuffleArray(notSeen).slice(0, READING_MAX_PHRASES - shuffleReviewItems.length);
 

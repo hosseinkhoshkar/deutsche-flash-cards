@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {PhraseService} from '../../services/phrase.service';
 import {Phrase} from '../../interfaces/phrase';
 import {NgClass} from '@angular/common';
@@ -14,21 +14,12 @@ import {NgClass} from '@angular/common';
 export class DashboardComponent implements OnInit{
   phrases:Phrase[]|undefined;
   phraseStyle:boolean=true;
-  constructor(private phraseService:PhraseService) {
+  constructor(private phraseService:PhraseService,private ref: ChangeDetectorRef) {
   }
   ngOnInit() {
     // this.phrases =
     this.phrases = this.phraseService.getReadingPhrases();
-
     this.phraseStyle = this.phraseService.getPhraseStyle()
-
-  }
-
-  goPrevSlide() {
-
-  }
-
-  goNextSlide() {
 
   }
 
@@ -47,7 +38,7 @@ export class DashboardComponent implements OnInit{
 
 
   seen(phrase: Phrase) {
-    phrase.seen =true
+    phrase.seen=true
     this.phraseService.updatePhrase(phrase);
   }
 }
